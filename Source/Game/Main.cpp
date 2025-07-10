@@ -3,6 +3,8 @@
 #include "Core/Random.h"
 #include "Core/Time.h"
 #include "Renderer/Renderer.h"
+#include "Input/Input System.h"
+
 
 #include <SDL3/SDL.h>
 #include <iostream>
@@ -10,19 +12,27 @@
 
 
 int main(int argc, char* argv[]) {
-    viper::Renderer renderer;
+    //Initialize engine systems
     viper::Time time;
 
+    viper::Renderer renderer;
     renderer.Initialize();
     renderer.CreateWindow("Viper Engine", 1280, 1024);
 
+    viper::InputSystem input;
+    input.Initialize();
+
     SDL_Event e;
     bool quit = false;
+
+
    
-    std::vector<vec2> stars;
+
+    //create stars
+    std::vector<viper::vec2> stars;
     for (int i = 0; i < 100; i++)
     {
-        stars.push_back(vec2{viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024});
+        stars.push_back(viper::vec2{viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024});
     }
     //vec2 v(30, 40);
 
@@ -35,11 +45,30 @@ int main(int argc, char* argv[]) {
                 quit = true;
             }
         }
+
+        //update engine systems
+        input.Update();
+
+
+        //get inputs
+        if (input.GetKeyPressed(SDL_SCANCODE_A)) {
+            std::cout << "pressed\n";
+        }
+
+        if (input.GetMouseButtonPressed(viper::InputSystem::MouseButton::Left)) {
+            std::cout << "mouse pressed\n";
+        }
+
+        //viper::vec2 mouse = input.GetMousePosition();
+        //std::cout << mouse.x << " " << mouse.y << std::endl;
+
+
+        //Draw!
         renderer.SetColor(0, 0, 0);
         renderer.Clear();
 
-
-        vec2 speed{ 100, 200 };
+       
+        viper::vec2 speed{ 100, 200 };
         float length = speed.Length();
 
         for (auto& star : stars) {

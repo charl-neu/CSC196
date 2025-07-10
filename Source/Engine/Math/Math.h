@@ -26,7 +26,6 @@ namespace viper {
 
 	using std::min;
 	using std::max;
-	using std::clamp;
 	using std::sqrt;
 	using std::sqrtf;
 	using std::sin;
