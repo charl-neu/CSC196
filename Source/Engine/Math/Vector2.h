@@ -36,8 +36,37 @@ namespace viper {
 		Vector2& operator *= (float s) { x *= s; y *= s; return *this; }
 		Vector2& operator /= (float s) { x /= s; y /= s; return *this; }
 
+		/// <summary>
+		/// Calculates the squared length (magnitude) of a 2D vector.
+		/// </summary>
+		/// <returns>The sum of the squares of the x and y components, representing the squared length of the vector.</returns>
 		float LengthSqr() { return ((x * x) + (y * y)); }
+
+		/// <summary>
+		/// Calculates the length (magnitude) of a vector.
+		/// </summary>
+		/// <returns>The length of the vector as a floating-point value.</returns>
 		float Length() { return viper::sqrtf(LengthSqr()); }
+
+		/// <summary>
+		/// Returns a normalized (unit length) version of the vector.
+		/// </summary>
+		/// <returns>A new Vector2 that has the same direction as the original but with a length of 1.</returns>
+		Vector2 Normalized() const { return *this / Length(); }
+
+		/// <summary>
+		/// Returns the angle, in radians, between the positive x-axis and the point (x, y).
+		/// </summary>
+		/// <returns>The angle in radians, computed using atan2f(y, x).</returns>
+		float Angle() const { return viper::atan2f(y, x); };
+
+		Vector2 Rotate(float radians) const {
+			Vector2 v;
+			v.x = x * viper::cosf(radians) - y * viper::sinf(radians);
+			v.y = x * viper::sinf(radians) + y * viper::cosf(radians);
+
+			return v;
+		}
 	};
 
 	using ivec2 = Vector2<int>;

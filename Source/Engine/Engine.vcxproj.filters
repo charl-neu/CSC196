@@ -32,14 +32,17 @@
     <ClCompile Include="Renderer\Renderer.cpp">
       <Filter>Source\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Time.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Input\Input System.cpp">
       <Filter>Source\Input</Filter>
     </ClCompile>
     <ClCompile Include="Audio\Audio System.cpp">
       <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Time.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer\Model.cpp">
+      <Filter>Source\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="Core\StringHelperr.h">
       <Filter>Source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer\Model.h">
+      <Filter>Source\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

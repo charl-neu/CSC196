@@ -34,4 +34,6 @@ namespace viper {
 	using std::cosf;
 	using std::tan;
 	using std::tanf;
+	using std::atanf;
+	using std::atan2f;
 }

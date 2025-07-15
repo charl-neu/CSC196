@@ -10,7 +10,7 @@ namespace viper {
 		T x, y, z;
 
 		Vector3() = default;
-		Vector3(T x, T y, T x) : x{ x }, y{ y }, z{ z } {}
+		Vector3(T x, T y, T z) : x{ x }, y{ y }, z{ z } {}
 
 		T operator [] (unsigned int index) const { assert(index < 2); return (&x)[index]; }
 		T& operator [] (unsigned int index) { assert(index < 2); return (&x)[index]; }
@@ -41,6 +41,6 @@ namespace viper {
 		float Length() { return viper::sqrtf(LengthSqr()); }
 	};
 
-	using ivec2 = Vector3<int>;
-	using vec2 = Vector3<float>;
+	using ivec3 = Vector3<int>;
+	using vec3 = Vector3<float>;
 }

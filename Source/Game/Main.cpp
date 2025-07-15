@@ -3,6 +3,7 @@
 #include "Core/Random.h"
 #include "Core/Time.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Model.h"
 #include "Input/Input System.h"
 #include "Audio/Audio System.h"
 
@@ -26,10 +27,19 @@ int main(int argc, char* argv[]) {
     SDL_Event e;
     bool quit = false;
 
-
-
 	viper::AudioSystem audio;
 	audio.Initialize();
+
+
+    std::vector<viper::vec2> points{
+        {-5,-5},
+        {5,-5},
+        {5,5},
+        {-5,5},
+        {-5, -5}
+    };
+
+	viper::Model model{ points, {0, 0, 1} };
 
     //create stars
     std::vector<viper::vec2> stars;
@@ -51,6 +61,8 @@ int main(int argc, char* argv[]) {
                 quit = true;
             }
         }
+
+        if (input.GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 
         //update engine systems
 		audio.Update();
@@ -75,8 +87,11 @@ int main(int argc, char* argv[]) {
 
 
         //Draw!
-        renderer.SetColor(0, 0, 0);
+        renderer.SetColor(0, 0, 0, 0);
         renderer.Clear();
+
+		renderer.SetColor(255, 255, 255, 255);
+		model.Draw(renderer, viper::vec2{ 640, 512 }, time.GetTime(), 100);
 
        
         viper::vec2 speed{ 100, 200 };
