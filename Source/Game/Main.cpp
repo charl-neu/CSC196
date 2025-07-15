@@ -4,6 +4,7 @@
 #include "Core/Time.h"
 #include "Renderer/Renderer.h"
 #include "Input/Input System.h"
+#include "Audio/Audio System.h"
 
 
 #include <SDL3/SDL.h>
@@ -26,7 +27,9 @@ int main(int argc, char* argv[]) {
     bool quit = false;
 
 
-   
+
+	viper::AudioSystem audio;
+	audio.Initialize();
 
     //create stars
     std::vector<viper::vec2> stars;
@@ -35,6 +38,9 @@ int main(int argc, char* argv[]) {
         stars.push_back(viper::vec2{viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024});
     }
     //vec2 v(30, 40);
+
+    //init sounds
+	audio.AddSound("bass.wav", "bass");
 
 
     //main loop
@@ -47,7 +53,12 @@ int main(int argc, char* argv[]) {
         }
 
         //update engine systems
+		audio.Update();
         input.Update();
+
+        if (input.GetKeyPressed(SDL_SCANCODE_A)) {
+			audio.PlaySound("bass");
+		}
 
 
         //get inputs
@@ -89,7 +100,8 @@ int main(int argc, char* argv[]) {
         renderer.Present();
 
     }
-
+    
+	audio.Shutdown();
     renderer.Shutdown();
 
     return 0;
