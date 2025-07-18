@@ -40,13 +40,13 @@ namespace viper {
 		/// Calculates the squared length (magnitude) of a 2D vector.
 		/// </summary>
 		/// <returns>The sum of the squares of the x and y components, representing the squared length of the vector.</returns>
-		float LengthSqr() { return ((x * x) + (y * y)); }
+		float LengthSqr() const { return ((x * x) + (y * y)); }
 
 		/// <summary>
 		/// Calculates the length (magnitude) of a vector.
 		/// </summary>
 		/// <returns>The length of the vector as a floating-point value.</returns>
-		float Length() { return viper::sqrtf(LengthSqr()); }
+		float Length() const { return viper::sqrtf(LengthSqr()); }
 
 		/// <summary>
 		/// Returns a normalized (unit length) version of the vector.
