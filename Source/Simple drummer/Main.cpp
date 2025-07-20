@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
 		audio->update();
 		input.Update();
 		
-		renderer.SetColor(0, 0, 0);
+		renderer.SetColoru(0, 0, 0);
 		renderer.Clear();
 
 

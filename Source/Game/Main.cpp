@@ -42,11 +42,17 @@ int main(int argc, char* argv[]) {
     };
 
 	viper::Model* model = new viper::Model{ points, {0, 0, 1} };
-	viper::Transform transform{ {640, 512}, 0, 10 };
-
-	viper::Actor actr{ transform, model };
-
+	
 	std::vector<viper::Actor> actors;
+
+    for (int i = 0; i < 10; i++)
+    {
+        
+		viper::Transform transform{ viper::vec2{viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024}, viper::random::getRandomFloat() * viper::twopi, 1.0f };
+        viper::Actor actr{ transform, model };
+		actors.push_back(actr);
+	}
+
 
     //create stars
     std::vector<viper::vec2> stars;
@@ -93,24 +99,32 @@ int main(int argc, char* argv[]) {
 
         float sped = 200;
 
-		viper::vec2 direction{ 1, 1 };
-        if (input.GetKeyDown(SDL_SCANCODE_LEFT)) {
-            transform.rotation -= 1000 * time.GetDeltatime();
+		viper::vec2 direction{ 0, 0 };
+
+        /*
+        if (input.GetKeyDown(SDL_SCANCODE_A)) {
+            transform.rotation -= viper::DegToRad(10 * time.GetDeltatime());
 		}
 
-        if (input.GetKeyDown(SDL_SCANCODE_RIGHT)) {
-            transform.rotation += 1000 * time.GetDeltatime();
+        if (input.GetKeyDown(SDL_SCANCODE_D)) {
+            transform.rotation += 10 * time.GetDeltatime();
         }
+        */
 
         if (input.GetKeyDown(SDL_SCANCODE_UP)) {
-            direction -= 100 * time.GetDeltatime();
+			direction.y -= 1;
 		}
+
+		
 
         if (direction.LengthSqr() > 0) {
             direction = direction.Normalized();
-            for (auto actor : actors) {
+            for (auto& actor : actors) {
                 actor.GetTransform().position += (direction * sped) * time.GetDeltatime();
-			}
+            }
+            //for (auto actor : actors) {
+            //    actor.GetTransform().position += (direction * sped) * time.GetDeltatime();
+			//}
 		}
         
 
@@ -125,7 +139,13 @@ int main(int argc, char* argv[]) {
 		}
 
 		//actor.Draw(renderer, viper::vec2{ 640, 512 }, time.GetTime(), 100);
-		actr.Draw(renderer);
+		for (auto & actr : actors)
+        {   
+            actr.GetTransform().rotation += 0.01f * time.GetDeltatime();
+            actr.GetTransform().scale = 1 + (0.5f * sinf(time.GetTime() * 2));
+            actr.Draw(renderer);
+		}
+       
 
        
         viper::vec2 speed{ 150, 200 };
