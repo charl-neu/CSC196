@@ -9,28 +9,31 @@
 #include "Renderer/Model.h"
 #include "Input/Input System.h"
 #include "Audio/Audio System.h"
+#include "GamePlayer.h"
+#include "scene.h"
 
 #include <SDL3/SDL.h>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 
 int main(int argc, char* argv[]) {
     //Initialize engine systems
     viper::Time time;
 
-    viper::Renderer renderer;
-    renderer.Initialize();
-    renderer.CreateWindow("Viper Engine", 1280, 1024);
+	std::unique_ptr<viper::Renderer> renderer = std::make_unique<viper::Renderer>();
+    renderer->Initialize();
+    renderer->CreateWindow("Viper Engine", 1280, 1024);
 
-    viper::InputSystem input;
-    input.Initialize();
+    std::unique_ptr<viper::InputSystem> input = std::make_unique<viper::InputSystem>();
+    input->Initialize();
 
     SDL_Event e;
     bool quit = false;
 
-	viper::AudioSystem audio;
-	audio.Initialize();
+	std::unique_ptr<viper::AudioSystem> audio = std::make_unique<viper::AudioSystem>();;
+	audio->Initialize();
 
 
     std::vector<viper::vec2> points{
@@ -41,16 +44,17 @@ int main(int argc, char* argv[]) {
         {-5, -5}
     };
 
-	viper::Model* model = new viper::Model{ points, {0, 0, 1} };
+
+	std::shared_ptr<viper::Model> model = std::make_shared<viper::Model>(points, viper::vec3{ 0, 0, 1 });
+	//viper::Model* model = new viper::Model{ points, {0, 0, 1} };
 	
-	std::vector<viper::Actor> actors;
+	viper::Scene scene;
 
     for (int i = 0; i < 10; i++)
     {
         
 		viper::Transform transform{ viper::vec2{viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024}, viper::random::getRandomFloat() * viper::twopi, 1.0f };
-        viper::Actor actr{ transform, model };
-		actors.push_back(actr);
+        scene.AddActor(std::make_unique<Player>(transform, model));
 	}
 
 
@@ -63,7 +67,7 @@ int main(int argc, char* argv[]) {
     //vec2 v(30, 40);
 
     //init sounds
-	audio.AddSound("bass.wav", "bass");
+	audio->AddSound("bass.wav", "bass");
 
 
     //main loop
@@ -75,22 +79,22 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        if (input.GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+        if (input->GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 
         //update engine systems
-		audio.Update();
-        input.Update();
+		audio->Update();
+        input->Update();
 
-        if (input.GetKeyPressed(SDL_SCANCODE_A)) {
-			audio.PlaySound("bass");
+        if (input->GetKeyPressed(SDL_SCANCODE_A)) {
+			audio->PlaySound("bass");
 		}
 
         //get inputs
-        if (input.GetKeyPressed(SDL_SCANCODE_A)) {
+        if (input->GetKeyPressed(SDL_SCANCODE_A)) {
             std::cout << "pressed\n";
         }
 
-        if (input.GetMouseButtonPressed(viper::InputSystem::MouseButton::Left)) {
+        if (input->GetMouseButtonPressed(viper::InputSystem::MouseButton::Left)) {
             std::cout << "mouse pressed\n";
         }
 
@@ -111,7 +115,7 @@ int main(int argc, char* argv[]) {
         }
         */
 
-        if (input.GetKeyDown(SDL_SCANCODE_UP)) {
+        if (input->GetKeyDown(SDL_SCANCODE_UP)) {
 			direction.y -= 1;
 		}
 
@@ -119,33 +123,30 @@ int main(int argc, char* argv[]) {
 
         if (direction.LengthSqr() > 0) {
             direction = direction.Normalized();
-            for (auto& actor : actors) {
-                actor.GetTransform().position += (direction * sped) * time.GetDeltatime();
-            }
+            //for (auto& actor : actors) {
+            //    actor->GetTransform().position += (direction * sped) * time.GetDeltatime();
+            //}
             //for (auto actor : actors) {
             //    actor.GetTransform().position += (direction * sped) * time.GetDeltatime();
 			//}
 		}
         
 
+
         //Draw!
 		viper::vec3 color{ 1, 1, 1 };
         
-        renderer.SetColor(0.0f, 0.0f, 0.0f);
-        renderer.Clear();
+        renderer->SetColor(0.0f, 0.0f, 0.0f);
+        renderer->Clear();
 
+        /*
         for (auto actor : actors) {
-            actor.Update(time.GetDeltatime());
+            actor->Update(time.GetDeltatime());
 		}
-
+        */
 		//actor.Draw(renderer, viper::vec2{ 640, 512 }, time.GetTime(), 100);
-		for (auto & actr : actors)
-        {   
-            actr.GetTransform().rotation += 0.01f * time.GetDeltatime();
-            actr.GetTransform().scale = 1 + (0.5f * sinf(time.GetTime() * 2));
-            actr.Draw(renderer);
-		}
-       
+
+        scene.Draw(*renderer);
 
        
         viper::vec2 speed{ 150, 200 };
@@ -157,8 +158,8 @@ int main(int argc, char* argv[]) {
             if (star.x < 0) star[0] = 1280;
             if (star.y >= 1024) star[1] = 0;
             if (star.y < 0) star[1] = 1024;
-            renderer.SetColor((float)viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256));
-            renderer.DrawPoint(star.x, star.y);
+            renderer->SetColor((float)viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256));
+            renderer->DrawPoint(star.x, star.y);
         }
         //for (int i = 0; i < 100; i++) {
         //    renderer.SetColor(viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256));
@@ -166,12 +167,14 @@ int main(int argc, char* argv[]) {
         //    renderer.SetColor(viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256), viper::random::getRandomInt(256));
         //    renderer.DrawPoint(viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024);
         //}
-        renderer.Present();
+        renderer->Present();
 
     }
     
-	audio.Shutdown();
-    renderer.Shutdown();
+	
+	audio->Shutdown();
+    renderer->Shutdown();
+	input->Shutdown();
 
     return 0;
 }

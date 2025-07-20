@@ -1,12 +1,12 @@
 #pragma once
 #include "../Math/Transform.h"
-
+#include <memory>
 
 namespace viper {
 	class Actor {
 	public:
 		Actor() = default;
-		Actor(const Transform& transform, class Model* model) : m_transform(transform), m_model{ model } {}
+		Actor(const Transform& transform, std::shared_ptr<class Model> model) : m_transform(transform), m_model{ model } {}
 
 		virtual void Update(float deltaTime);
 		virtual void Draw(class Renderer& renderer);
@@ -15,6 +15,6 @@ namespace viper {
 
 	protected:
 		Transform m_transform{ {0, 0}, 0, 1 };
-		Model* m_model;
+		std::shared_ptr<Model> m_model;
 	};
 }
