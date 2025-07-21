@@ -3,7 +3,7 @@
 #include "renderer/renderer.h"
 #include "renderer/model.h"
 #include "game/actor.h"
-#include "scene.h"
+#include "game/scene.h"
 
 #include <iostream> 
 #include <vector>
