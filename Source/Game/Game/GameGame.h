@@ -3,6 +3,7 @@
 #include <memory>
 
 
+
 class SpaceGame : public viper::Game
 {
 
@@ -13,6 +14,7 @@ public:
 	void Update() override;
 	void Draw() override;
 
+
 private:
-	//std::shared_ptr<class viper::Model> m_model;
+	
 };

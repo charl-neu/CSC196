@@ -6,31 +6,31 @@
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source\Game">
-      <UniqueIdentifier>{ba6fafdc-20c2-45fe-9d84-242ebc6d6f59}</UniqueIdentifier>
+      <UniqueIdentifier>{98ba77c5-f854-4171-a0df-3b21b89505f5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GamePlayer.cpp">
+    <ClCompile Include="Game\Enemy.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="Game\GameGame.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
-    <ClCompile Include="GameGame.cpp">
+    <ClCompile Include="Game\GamePlayer.cpp">
       <Filter>Source\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GamePlayer.h">
+    <ClInclude Include="Game\Enemy.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="Game\GameGame.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
-    <ClInclude Include="GameGame.h">
+    <ClInclude Include="Game\GamePlayer.h">
       <Filter>Source\Game</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,10 +9,11 @@
 #include "Renderer/Model.h"
 #include "Input/Input System.h"
 #include "Audio/Audio System.h"
-#include "GamePlayer.h"
+#include "game/GamePlayer.h"
 #include "game/scene.h"
 #include "Engine.h"
-#include "GameGame.h"
+#include "game/GameGame.h"
+
 
 #include <SDL3/SDL.h>
 #include <iostream>
@@ -31,6 +32,8 @@ int main(int argc, char* argv[]) {
 	viper::GetEngine().Initialize();
 
 	std::unique_ptr<SpaceGame> game = std::make_unique<SpaceGame>();
+	game->Initialize();
+
 
 
     //create stars
@@ -55,12 +58,14 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        //update engine systems
+        viper::GetEngine().Update();
+        game->Update();
+
+
         if (INPUT.GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 
-        //update engine systems
-		viper::GetEngine().Update();
-		scene.Update(TIME.GetDeltatime());
-
+       
         if (INPUT.GetKeyPressed(SDL_SCANCODE_A)) {
             AUDIO.PlaySound("bass");
 		}
@@ -80,16 +85,20 @@ int main(int argc, char* argv[]) {
         RENDERER.SetColor(0.0f, 0.0f, 0.0f);
         RENDERER.Clear();
 
-        scene.Draw(RENDERER);
+		game->Draw();
 
-
-
+        for(auto& star : stars)
+        {
+            RENDERER.SetColor(color.x, color.y, color.z);
+            RENDERER.DrawPoint(star.x, star.y);
+		}
 
         RENDERER.Present();
 
     }
     
 	viper::GetEngine().Shutdown();
+	game->Shutdown();
 
     return 0;
 }

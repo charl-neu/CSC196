@@ -8,6 +8,7 @@ namespace viper {
 	/// </summary>
 	/// <param name="deltaTime">The time elapsed since the last update.</param>
 	void Actor::Update(float deltaTime) {
+		m_transform.position += velocity * deltaTime;
 
 	}
 
