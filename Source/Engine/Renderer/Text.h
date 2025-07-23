@@ -1,9 +1,12 @@
 #pragma once
+
+#include "Renderer.h"
+#include "Font.h"
+#include "../Math/Vector3.h"
+
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_ttf.h>
 #include <string>
-#include "Renderer.h"
-#include "Font.h"
 
 namespace viper {
 	class Text {
