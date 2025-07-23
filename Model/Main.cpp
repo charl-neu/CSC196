@@ -1,4 +1,7 @@
+//Old project, code no longer works with new Engine setup
 
+
+/*
 #include "math/vector2.h"
 #include "renderer/renderer.h"
 #include "renderer/model.h"
@@ -54,5 +57,10 @@ int main(int argc, char* argv[]) {
 
     renderer->Shutdown();
 
+    return 0;
+}
+*/
+
+int main(int argc, char* argv[]) {
     return 0;
 }

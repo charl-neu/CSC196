@@ -1,3 +1,7 @@
+//Old project, code no longer works with new Engine setup
+
+
+/*
 #include "Math/Math.h"
 #include "Math\Vector2.h"
 #include "Renderer/Renderer.h"
@@ -36,8 +40,8 @@ int main(int argc, char* argv[]) {
 
 
 
-        /*
-        // Step 1: Point addition to draw lines
+        
+         Step 1: Point addition to draw lines
         
         
         if (inputSystem.GetMouseButtonPressed(viper::InputSystem::MouseButton::Left)) {
@@ -47,7 +51,7 @@ int main(int argc, char* argv[]) {
             renderer.SetColor(255, 255, 255);
             renderer.DrawLine(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
         }
-        */
+        
 
 
         
@@ -69,4 +73,9 @@ int main(int argc, char* argv[]) {
     }
 
 	renderer.Shutdown();
+}
+*/
+
+int main(int argc, char* argv[]) {
+    return 0;
 }

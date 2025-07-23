@@ -1,3 +1,7 @@
+//Old project, code no longer works with new Engine setup
+
+
+/*
 #include <iostream>
 #include <vector>
 #include <fmod.hpp>
@@ -74,4 +78,9 @@ int main(int argc, char* argv[]) {
 	renderer.Shutdown();
 	audio->release();
 	input.Shutdown();
+}
+*/
+
+int main(int argc, char* argv[]) {
+	return 0;
 }
