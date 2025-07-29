@@ -1,14 +1,14 @@
 #pragma once
 #include "../Engine/Game/Actor.h"
 
-class Enemy: public viper::Actor
+class Rocket : public viper::Actor
 {
 public:
 	float accel = 200;
-	float angularVel = 90.0f;
+	float angularVel = 120.0f;
 public:
-	Enemy() = default;
-	Enemy(const viper::Transform& transform, std::shared_ptr<viper::Model> model) :
+	Rocket() = default;
+	Rocket(const viper::Transform& transform, std::shared_ptr<viper::Model> model) :
 		Actor{ transform, model }
 	{
 	}

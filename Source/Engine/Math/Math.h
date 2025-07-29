@@ -24,6 +24,40 @@ namespace viper {
 	/// <returns>The equivalent angle in radians</returns>
 	constexpr float DegToRad(int deg) { return deg * (pi / 180); }
 
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="value"></param>
+	/// <param name="min"></param>
+	/// <param name="max"></param>
+	/// <returns></returns>
+	constexpr int Wrap(int value, int min, int max) {
+		if (value > max) value = value - max;
+
+		int range = max - min;
+		int result = (value - min) % range;
+		if (result < 0) {
+			result += range;
+		}
+		return min + result;
+	}
+
+	/// <summary>
+	/// wraps a float value to a specified range.
+	/// </summary>
+	/// <param name="value"> </param>
+	/// <param name="min"></param>
+	/// <param name="max"></param>
+	/// <returns></returns>
+	inline float Wrap(float value, float min, float max) {
+		float range = max - min;
+		float result = fmodf((value - min), range);
+		if (result < 0) {
+			result += range;
+		}
+		return min + result;
+	}
+
 	using std::min;
 	using std::max;
 	using std::sqrt;

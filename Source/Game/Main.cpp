@@ -26,7 +26,7 @@
 #define TIME viper::GetEngine().GetTime()
 
 int main(int argc, char* argv[]) {
-	
+
 
     //init engine
 	viper::GetEngine().Initialize();
@@ -43,15 +43,12 @@ int main(int argc, char* argv[]) {
         stars.push_back(viper::vec2{viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024});
     }
 
-    //init sounds
-	AUDIO.AddSound("bass.wav", "bass");
-
-
     SDL_Event e;
     bool quit = false;
 
     //main loop
     while (!quit) {
+		
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_EVENT_QUIT) {
                 quit = true;
@@ -60,20 +57,12 @@ int main(int argc, char* argv[]) {
 
         //update engine systems
         viper::GetEngine().Update();
-        game->Update();
+        float dt = TIME.GetDeltatime();
+        game->Update(dt);
+
 
 
         if (INPUT.GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
-
-       
-        if (INPUT.GetKeyPressed(SDL_SCANCODE_A)) {
-            AUDIO.PlaySound("bass");
-		}
-
-        //get inputs
-        if (INPUT.GetKeyPressed(SDL_SCANCODE_A)) {
-            std::cout << "pressed\n";
-        }
 
         if (INPUT.GetMouseButtonPressed(viper::InputSystem::MouseButton::Left)) {
             std::cout << "mouse pressed\n";
@@ -91,6 +80,11 @@ int main(int argc, char* argv[]) {
         {
             RENDERER.SetColor(color.x, color.y, color.z);
             RENDERER.DrawPoint(star.x, star.y);
+            star.x -= 100.0f * dt;
+            star.y += 100.0f * dt;
+
+            star.x = viper::Wrap(star.x, 0.0f, 1280.0f);
+            star.y = viper::Wrap(star.y, 0.0f, 1024.0f);
 		}
 
         RENDERER.Present();

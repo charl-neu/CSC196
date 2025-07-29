@@ -8,8 +8,8 @@ namespace viper {
 	/// </summary>
 	/// <param name="deltaTime">The time elapsed since the last update.</param>
 	void Actor::Update(float deltaTime) {
-		m_transform.position += velocity * deltaTime;
-
+		transform.position += velocity * deltaTime;
+		velocity *= (1.0f / (1.0f + damping * deltaTime)); 
 	}
 
 	/// <summary>
@@ -18,7 +18,7 @@ namespace viper {
 	/// <param name="renderer">The renderer used to draw the actor.</param>
 	void Actor::Draw(Renderer& renderer) {
 		if (m_model) {
-			m_model->Draw(renderer, m_transform);
+			m_model->Draw(renderer, transform);
 		}
 	}
 } // namespace viper

@@ -31,6 +31,12 @@ namespace viper
 	/// </summary>
 	/// <param name="actor">A unique pointer to the actor to be added. Ownership of the actor is transferred to the scene.</param>
 	void Scene::AddActor(std::unique_ptr<Actor> actor) {
+		actor->scene = this;
 		m_actors.push_back(std::move(actor));
 	}
+
+	void Scene::RemoveAllActors() {
+		m_actors.clear();
+	}
+
 }

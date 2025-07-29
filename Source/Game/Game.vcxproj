@@ -156,8 +156,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Enemy.cpp" />
+    <ClCompile Include="Game\GameData.cpp" />
     <ClCompile Include="Game\GameGame.cpp" />
     <ClCompile Include="Game\GamePlayer.cpp" />
+    <ClCompile Include="Game\Rocket.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Enemy.h" />
+    <ClInclude Include="Game\GameData.h" />
     <ClInclude Include="Game\GameGame.h" />
     <ClInclude Include="Game\GamePlayer.h" />
+    <ClInclude Include="Game\Rocket.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

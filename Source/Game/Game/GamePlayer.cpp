@@ -1,11 +1,11 @@
 #include "GamePlayer.h"
 #include "Engine.h"
 #include "Input/Input System.h"
+#include "Math/Math.h"
 
 void Player::Update(float deltaTime)
 {
-	float sped = 200;
-	float angularVel = 90.0f; 
+
 
 	float rotate = 0;
 	
@@ -18,7 +18,7 @@ void Player::Update(float deltaTime)
 		rotate = 1;
 	}
 
-	m_transform.rotation += rotate * deltaTime * angularVel;
+	transform.rotation += rotate * deltaTime * angularVel;
 
 
 
@@ -32,8 +32,15 @@ void Player::Update(float deltaTime)
 
 
 	viper::vec2 direction{ 1, 0 };
-	viper::vec2 force = direction.Rotate(viper::DegToRad(m_transform.rotation)) * sped;
+	viper::vec2 force = direction.Rotate(viper::DegToRad(transform.rotation)) * accel;
 	velocity += force * thrust * deltaTime;
+
+	transform.position.x = viper::Wrap(transform.position.x, 0.0f, 1280.0f);
+	transform.position.y = viper::Wrap(transform.position.y, 0.0f, 1024.0f);
+
+	if (viper::GetEngine().GetInputSystem().GetKeyPressed(SDL_SCANCODE_SPACE)) {
+		
+	}
 
 
 	Actor::Update(deltaTime);
