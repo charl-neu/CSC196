@@ -92,8 +92,9 @@ int main(int argc, char* argv[]) {
 
     }
     
-	viper::GetEngine().Shutdown();
 	game->Shutdown();
+	game.release();
+	viper::GetEngine().Shutdown();
 
     return 0;
 }

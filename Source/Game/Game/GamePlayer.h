@@ -13,5 +13,10 @@ public:
 	{}
 
 	void Update(float deltaTime) override;
+	
 private:
+	float firetimer = 0.0f;
+
+	// Inherited via Actor
+	void onCollision(Actor* other) override;
 };

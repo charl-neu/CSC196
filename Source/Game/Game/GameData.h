@@ -5,4 +5,5 @@
 namespace GameData {
 	extern std::vector<viper::vec2> pl_points;
 	extern std::vector<viper::vec2> en_points;
+	extern std::vector<viper::vec2> ro_points;
 }

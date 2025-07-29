@@ -31,4 +31,19 @@ namespace viper{
 	{
 		Draw(renderer, transform.position, transform.rotation, transform.scale);
 	}
+
+	/// <summary>
+	/// Calculates the radius of the model based on its points.
+	/// </summary>
+	void Model::CalculateRadius()
+	{
+		
+		m_radius = 0.0f;
+		for (const auto& point : m_points) {
+			float distance = point.Length();
+			if (distance > m_radius) {
+				m_radius = distance;
+			}
+		}
+	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "Game/Game.h"
 #include <memory>
+#include "Renderer/Font.h"
+#include "Renderer/Text.h"
 
 
 
@@ -30,4 +32,10 @@ private:
 	GameState m_gameState =GameState::Initialize;
 	float m_enemySpawnTimer = 0.0f;
 	
+	std::shared_ptr<viper::Font> m_titlefont;
+	std::shared_ptr<viper::Font> m_uifont;
+
+	std::unique_ptr<viper::Text> m_titleText;
+	std::unique_ptr<viper::Text> m_scoreText;
+	std::unique_ptr<viper::Text> m_livesText;
 };

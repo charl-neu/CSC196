@@ -9,9 +9,36 @@ namespace viper
 	/// </summary>
 	/// <param name="deltaTime">The elapsed time since the last update, in seconds.</param>
 	void Scene::Update(float deltaTime) {
+		/// Update all actors
 		for (auto& actr : m_actors)
 		{
 			actr->Update(deltaTime);
+		}
+
+
+		/// Remove actors that are marked as destroyed
+		for (auto it = m_actors.begin(); it != m_actors.end();)
+		{
+			if ((*it)->destroyed) {
+				it = m_actors.erase(it); 
+			}
+			else {
+				it++; 
+			}
+		}
+
+		for (auto& actrA : m_actors)
+		{
+			for (auto& actrB : m_actors)
+			{
+				if (actrA.get() != actrB.get()) {
+					float distance = (actrA->transform.position - actrB->transform.position).Length();
+					if (distance < (actrA->GetRadius() + actrB->GetRadius())*.75f) {
+						actrA->onCollision(actrB.get());
+						actrB->onCollision(actrA.get());
+					}
+				}
+			}
 		}
 	}
 

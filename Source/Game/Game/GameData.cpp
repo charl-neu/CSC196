@@ -16,4 +16,11 @@ namespace GameData {
 		{-4, -3}
 
 	};
+	std::vector<viper::vec2> ro_points{
+	{-4,-2},
+	{4,0},
+	{-4,2},
+	{-2,0},
+	{-4, -2}
+	};
 }
