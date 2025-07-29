@@ -64,12 +64,12 @@ void SpaceGame::Update(float dt)
 	case GameState::Game:
 		m_enemySpawnTimer -= dt;
 		if (m_enemySpawnTimer <= 0.0f) {
-			m_enemySpawnTimer = viper::random::getRandomFloat() * 2.0f + 1.0f; // Random spawn time between 1 and 3 seconds
+			m_enemySpawnTimer = viper::random::getReal() * 2.0f + 1.0f; // Random spawn time between 1 and 3 seconds
 			std::shared_ptr<viper::Model> en_model = std::make_shared<viper::Model>(GameData::en_points, viper::vec3{ 1.0f, 0, 0 });
-			viper::Transform transform{ viper::vec2{ viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024 }, 0, 2.0f };
+			viper::Transform transform{ viper::vec2{ viper::random::getReal() * 1280, viper::random::getReal() * 1024 }, 0, 2.0f };
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, en_model);
 			enemy->damping = 0.5f;
-			enemy->accel = (viper::random::getRandomFloat() * 200.0f) + 50.0f;
+			enemy->accel = (viper::random::getReal() * 200.0f) + 50.0f;
 			enemy->name = "Enemy"; // Set a unique name for the enemy actor
 			enemy->tag = "enemy";
 			m_scene->AddActor(std::move(enemy));

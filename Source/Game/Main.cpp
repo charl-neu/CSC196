@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
     std::vector<viper::vec2> stars;
     for (int i = 0; i < 100; i++)
     {
-        stars.push_back(viper::vec2{viper::random::getRandomFloat() * 1280, viper::random::getRandomFloat() * 1024});
+        stars.push_back(viper::vec2{viper::random::getReal() * 1280, viper::random::getReal() * 1024});
     }
 
     SDL_Event e;
