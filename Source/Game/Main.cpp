@@ -13,6 +13,7 @@
 #include "game/scene.h"
 #include "Engine.h"
 #include "game/GameGame.h"
+#include "Core/File.h"
 
 
 #include <SDL3/SDL.h>
