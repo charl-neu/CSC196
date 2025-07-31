@@ -26,10 +26,10 @@ void Enemy::Update(float deltaTime)
 
 		float angle = viper::vec2::SignedAngleBetween(forward, direction);
 		angle = viper::sign(angle);
-		transform.rotation += viper::RadToDeg(angle * deltaTime);
+		transform.rotation += viper::RadToDeg(angle * 2 * deltaTime);
 
 		angle = viper::RadToDeg(viper::vec2::AngleBetween(forward, direction));
-		playerFound = angle < 30.0f;
+		playerFound = angle < 15.0f;
 	}
 
 	viper::vec2 force = viper::vec2{1,0}.Rotate(viper::DegToRad(transform.rotation)) * accel;
@@ -49,7 +49,7 @@ void Enemy::Update(float deltaTime)
 		rocket->tag = "rockete";
 		rocket->lifespan = 0.5f;
 		scene->AddActor(std::move(rocket));
-		firetimer = 5.0f;
+		firetimer = maxfire;
 	}
 
 
@@ -58,10 +58,10 @@ void Enemy::Update(float deltaTime)
 
 void Enemy::onCollision(Actor* other)
 {
-	if (other->tag != this->tag && other->tag != "rockete")
+	if (other->tag != this->tag && other->tag != "rockete" && name != "immortal snail")
 	{
 		destroyed = true;
-		scene->GetGame()->AddPoints(100);
+		scene->GetGame()->AddPoints(m_points);
 		for (int i = 0; i < 100; i++)
 		{
 			viper::Particle particle;

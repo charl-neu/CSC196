@@ -73,6 +73,7 @@ void Player::Update(float deltaTime)
 	}
 
 	firetimer -= deltaTime;
+	invincibilityTimer -= deltaTime;
 
 	Actor::Update(deltaTime);
 
@@ -81,8 +82,12 @@ void Player::Update(float deltaTime)
 
 void Player::onCollision(Actor* other)
 {
-	if (other->tag == "enemy" || other->tag == "rockete") {
-		destroyed = true; 
-		dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath(); 
+	if ((other->tag == "enemy" || other->tag == "rockete") && invincibilityTimer < 0) {
+		health--;
+		if (health <= 0) {
+			destroyed = true;
+			invincibilityTimer = 2.0f; // Start invincibility timer
+			dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath();
+		}
 	}
 }

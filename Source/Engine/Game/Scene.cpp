@@ -35,7 +35,6 @@ namespace viper
 					float distance = (actrA->transform.position - actrB->transform.position).Length();
 					if (distance < (actrA->GetRadius() + actrB->GetRadius())*.75f) {
 						actrA->onCollision(actrB.get());
-						actrB->onCollision(actrA.get());
 					}
 				}
 			}

@@ -5,6 +5,7 @@
 #include "GamePlayer.h"
 #include "Core/Random.h"
 #include "Renderer/Particle System.h"
+#include "Game/Game.h"
 
 void Rocket::Update(float deltaTime)
 {
@@ -24,11 +25,18 @@ void Rocket::Update(float deltaTime)
 
 
 	Actor::Update(deltaTime);
+
+	if (lifespan < 0.0f && tag == "rocket") {
+		scene->GetGame()->resetMultiplier();
+	}
 }
 
 void Rocket::onCollision(Actor* other)
 {
-	if (other->tag == "enemy" && tag != "rockete") {
+	if ((other->tag == "enemy" && tag == "rocket") || (other->tag == "player" && tag == "rockete")) {
 		destroyed = true;
+		if (tag == "rocket") {
+			scene->GetGame()->increaseMultiplier(0.10f);
+		}
 	}
 }
