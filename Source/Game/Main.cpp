@@ -14,6 +14,7 @@
 #include "Engine.h"
 #include "game/GameGame.h"
 #include "Core/File.h"
+#include "Renderer/Particle System.h"
 
 
 #include <SDL3/SDL.h>
@@ -25,6 +26,7 @@
 #define AUDIO viper::GetEngine().GetAudioSystem()
 #define INPUT viper::GetEngine().GetInputSystem()
 #define TIME viper::GetEngine().GetTime()
+#define PARTICLES viper::GetEngine().GetParticleSystem()
 
 int main(int argc, char* argv[]) {
 
@@ -60,6 +62,7 @@ int main(int argc, char* argv[]) {
         viper::GetEngine().Update();
         float dt = TIME.GetDeltatime();
         game->Update(dt);
+		PARTICLES.Update(dt);
 
 
 
@@ -75,18 +78,19 @@ int main(int argc, char* argv[]) {
         RENDERER.SetColor(0.0f, 0.0f, 0.0f);
         RENDERER.Clear();
 
-		game->Draw();
+		game->Draw(RENDERER);
 
         for(auto& star : stars)
         {
             RENDERER.SetColor(color.x, color.y, color.z);
             RENDERER.DrawPoint(star.x, star.y);
-            star.x -= 100.0f * dt;
-            star.y += 100.0f * dt;
+            star.x -= 50.0f * dt;
+            star.y += 50.0f * dt;
 
             star.x = viper::Wrap(star.x, 0.0f, 1280.0f);
             star.y = viper::Wrap(star.y, 0.0f, 1024.0f);
 		}
+
 
         RENDERER.Present();
 

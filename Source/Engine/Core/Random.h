@@ -1,4 +1,6 @@
 #pragma once
+#include "../Math/Vector2.h"
+#include "../Math/Math.h"
 #include <cstdlib>
 #include <random>
 
@@ -88,5 +90,17 @@ namespace viper::random {
     inline bool getBool() {
         static std::bernoulli_distribution dist(0.5);
         return dist(generator());
+    }
+
+    /// <summary>
+	/// Generates a random vector on the unit circle.
+    /// </summary>
+    /// <returns></returns>
+    inline vec2 onUnitCircle() {
+        float angle = getReal(viper::twopi);
+        vec2 v;
+		v.x = cos(angle);
+		v.y = sin(angle);
+        return v;
     }
 }

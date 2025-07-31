@@ -67,6 +67,43 @@ namespace viper {
 
 			return v;
 		}
+
+		/// <summary>
+		/// returns the cross product between two vectors
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		static	float Cross(const Vector2& a, const Vector2& b) {
+			return a.x * b.y - a.y * b.x;
+		}
+
+		/// <summary>
+		/// returns the dot product of two vectors
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		static float Dot(const Vector2& a, const Vector2& b) {
+			return a.x * b.x + a.y * b.y;
+		}
+
+		/// <summary>
+		/// returns the angle in radians between two vectors
+		/// </summary>
+		/// <param name="a"></param>
+		/// <param name="b"></param>
+		/// <returns></returns>
+		static float AngleBetween(const Vector2& a, const Vector2& b) {
+			return viper::acosf(Dot(a, b));
+		}
+
+		static float SignedAngleBetween(const Vector2& a, const Vector2& b) {
+			float x = Dot(a, b);
+			float y = Cross(a, b);
+			return viper::atan2f(y, x);
+		}
+
 	};
 
 	using ivec2 = Vector2<int>;

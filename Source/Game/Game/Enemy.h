@@ -18,4 +18,5 @@ private:
 
 	// Inherited via Actor
 	void onCollision(Actor* other) override;
+	float firetimer = 3.0f;
 };

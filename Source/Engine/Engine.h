@@ -7,6 +7,7 @@ namespace viper
 	class Renderer;
 	class AudioSystem;
 	class InputSystem;
+	class ParticleSystem;
 
 	class Engine {
 	public:
@@ -21,6 +22,7 @@ namespace viper
 		Renderer& GetRenderer() { return *m_renderer; }
 		AudioSystem& GetAudioSystem() { return *m_audio; }
 		InputSystem& GetInputSystem() { return *m_input; }
+		ParticleSystem& GetParticleSystem() { return *m_particleSystem; }
 
 		Time& GetTime() { return m_time; }
 	private:
@@ -30,6 +32,7 @@ namespace viper
 		std::unique_ptr<Renderer> m_renderer;
 		std::unique_ptr<AudioSystem> m_audio;
 		std::unique_ptr<InputSystem> m_input;
+		std::unique_ptr<ParticleSystem> m_particleSystem;
 	};
 
 	Engine& GetEngine();

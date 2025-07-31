@@ -15,14 +15,14 @@ namespace viper {
 	/// </summary>
 	/// <param name="rad">The radian angle to convert</param>
 	/// <returns>The equivalent angle in degrees</returns>
-	constexpr float RadToDeg(int rad) { return rad * (180 / pi); }
+	constexpr float RadToDeg(float rad) { return rad * (180 / pi); }
 
 	/// <summary>
 	/// Converts an angle from degrees to radians
 	/// </summary>
 	/// <param name="deg">The degrees angle to convert</param>
 	/// <returns>The equivalent angle in radians</returns>
-	constexpr float DegToRad(int deg) { return deg * (pi / 180); }
+	constexpr float DegToRad(float deg) { return deg * (pi / 180); }
 
 	/// <summary>
 	/// 
@@ -58,6 +58,17 @@ namespace viper {
 		return min + result;
 	}
 
+	/// <summary>
+	/// Returns the sign of a value.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="v"></param>
+	/// <returns></returns>
+	template<typename T>
+	inline T sign(T v) {
+		return (v < 0) ? (T)-1 : (v > 0) ? (T)1 : (T)0;
+	}
+
 	using std::min;
 	using std::max;
 	using std::sqrt;
@@ -66,6 +77,7 @@ namespace viper {
 	using std::sinf;
 	using std::cos;
 	using std::cosf;
+	using std::acosf;
 	using std::tan;
 	using std::tanf;
 	using std::atanf;

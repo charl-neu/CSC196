@@ -6,10 +6,22 @@
 #include "Game/Scene.h"
 #include "Renderer/Model.h"
 #include "GameData.h"
+#include "GameGame.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Particle System.h"
+#include "Core/Random.h"
 
 void Player::Update(float deltaTime)
 {
+
+	if (velocity.Length()) {
+		viper::Particle particle;
+		particle.position = transform.position;
+		particle.velocity = viper::vec2{ -velocity.x + viper::random::getReal() * 100 - 50, -velocity.y + viper::random::getReal() * 100 - 50 };
+		particle.color = viper::vec3{ 1.0f, 1.0f, 1.0f };
+		particle.lifetime = .25f * (viper::random::getReal() * 2);
+		viper::GetEngine().GetParticleSystem().AddParticle(particle);
+	}
 
 
 	float rotate = 0;
@@ -56,6 +68,7 @@ void Player::Update(float deltaTime)
 			rocket->lifespan = 1.5f;
 			scene->AddActor(std::move(rocket));
 			firetimer = 0.2f;
+			// TODO: Firing Sound viper::GetEngine().GetAudioSystem().PlaySound("fire");
 		}
 	}
 
@@ -68,8 +81,8 @@ void Player::Update(float deltaTime)
 
 void Player::onCollision(Actor* other)
 {
-	if (other->tag == "enemy") {
-		destroyed = true; // Destroy the player
+	if (other->tag == "enemy" || other->tag == "rockete") {
+		destroyed = true; 
+		dynamic_cast<SpaceGame*>(scene->GetGame())->OnPlayerDeath(); 
 	}
-	
 }
